@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "baltiahmed",
+    "slug": "baltiahmed",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/utica.png",
+    "scheme": "utica",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single",
+      "favicon": "./assets/images/utica.png"
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "04709143-c3c1-48b0-9b5d-9f08f22b93cf"
+      }
+    },
+    "android": {
+      "package": "com.baltiahmed.baltiahmed"
+    }
+  }
+}
