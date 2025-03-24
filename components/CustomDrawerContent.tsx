@@ -24,6 +24,71 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
     setIsDarkTheme(!isDarkTheme);
   };
 
+  const createStyles = (isDarkTheme: boolean) =>
+    StyleSheet.create({
+      drawerContent: {
+        flex: 1,
+        backgroundColor: isDarkTheme ? "#1a1a1a" : "#ffffff",
+      },
+      userInfoSection: {
+        paddingLeft: 20,
+        paddingVertical: 20,
+        borderBottomWidth: 1,
+        borderBottomColor: isDarkTheme ? "#333333" : "#f0f0f0",
+      },
+      userInfoHeader: {
+        flexDirection: "row",
+        alignItems: "center",
+      },
+      userDetails: {
+        marginLeft: 15,
+        flexDirection: "column",
+      },
+      title: {
+        fontSize: 16,
+        marginTop: 3,
+        fontWeight: "bold",
+        fontFamily: "Inter-SemiBold",
+        color: isDarkTheme ? "#ffffff" : "#000000",
+      },
+      caption: {
+        fontSize: 14,
+        lineHeight: 14,
+        fontFamily: "Inter-Regular",
+        color: isDarkTheme ? "#aaaaaa" : "#666666",
+      },
+      drawerSection: {
+        marginTop: 15,
+      },
+      bottomDrawerSection: {
+        marginBottom: 15,
+        borderTopColor: isDarkTheme ? "#333333" : "#f0f0f0",
+        borderTopWidth: 1,
+        marginTop: "auto",
+      },
+      preference: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        paddingVertical: 1,
+        paddingHorizontal: 20,
+      },
+      text: {
+        color: isDarkTheme ? "#ffffff" : "#000000",
+        fontSize: 16,
+        fontFamily: "Inter-Regular",
+      },
+      switch: {
+        marginLeft: 5,
+      },
+      drawerItemLabel: {
+        color: isDarkTheme ? "#ffffff" : "#000000",
+        fontFamily: "Inter-Regular",
+      },
+    });
+
+  const styles = createStyles(isDarkTheme);
+
   // Handle navigation with proper validation and error handling
   const handleNavigation = (route: string) => {
     try {
@@ -32,7 +97,7 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
 
       // Navigate using expo-router
       setTimeout(() => {
-        router.push(route);
+        router.push(route as any); //added as any to remove the red (made by chef)
       }, 0);
     } catch (error) {
       console.error("Navigation error:", error);
@@ -63,166 +128,137 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
         </View>
 
         {/* Drawer Sections */}
-        <Drawer.Section style={styles.drawerSection}>
+        <View style={styles.drawerSection}>
           <DrawerItem
-            icon={({ color, size }) => (
+            icon={({ size }) => (
               <MaterialCommunityIcons
                 name="home-outline"
-                color={color}
+                color={isDarkTheme ? "#ffffff" : "#666666"}
                 size={size}
               />
             )}
             label="Home"
+            labelStyle={styles.drawerItemLabel}
             onPress={() => handleNavigation("/")}
           />
           <DrawerItem
-            icon={({ color, size }) => (
+            icon={({ size }) => (
               <MaterialCommunityIcons
                 name="book-open-outline"
-                color={color}
+                color={isDarkTheme ? "#ffffff" : "#666666"}
                 size={size}
               />
             )}
             label="Catalogue"
+            labelStyle={styles.drawerItemLabel}
             onPress={() => handleNavigation("/catalogue")}
           />
           <DrawerItem
-            icon={({ color, size }) => (
+            icon={({ size }) => (
               <MaterialCommunityIcons
                 name="account-group-outline"
-                color={color}
+                color={isDarkTheme ? "#ffffff" : "#666666"}
                 size={size}
               />
             )}
             label="Trainers"
+            labelStyle={styles.drawerItemLabel}
             onPress={() => handleNavigation("/trainers")}
           />
           <DrawerItem
-            icon={({ color, size }) => (
+            icon={({ size }) => (
               <MaterialCommunityIcons
                 name="certificate-outline"
-                color={color}
+                color={isDarkTheme ? "#ffffff" : "#666666"}
                 size={size}
               />
             )}
             label="Certificate"
+            labelStyle={styles.drawerItemLabel}
             onPress={() => handleNavigation("/certificate")}
           />
           <DrawerItem
-            icon={({ color, size }) => (
+            icon={({ size }) => (
               <MaterialCommunityIcons
                 name="post-outline"
-                color={color}
+                color={isDarkTheme ? "#ffffff" : "#666666"}
                 size={size}
               />
             )}
             label="Blog"
+            labelStyle={styles.drawerItemLabel}
             onPress={() => handleNavigation("/blog")}
           />
           <DrawerItem
-            icon={({ color, size }) => (
+            icon={({ size }) => (
               <MaterialCommunityIcons
                 name="handshake-outline"
-                color={color}
+                color={isDarkTheme ? "#ffffff" : "#666666"}
                 size={size}
               />
             )}
             label="Partners"
+            labelStyle={styles.drawerItemLabel}
             onPress={() => handleNavigation("/partners")}
           />
           <DrawerItem
-            icon={({ color, size }) => (
+            icon={({ size }) => (
               <MaterialCommunityIcons
                 name="magnify"
-                color={color}
+                color={isDarkTheme ? "#ffffff" : "#666666"}
                 size={size}
               />
             )}
             label="Search"
+            labelStyle={styles.drawerItemLabel}
             onPress={() => handleNavigation("/search")}
           />
-        </Drawer.Section>
+        </View>
 
         {/* Preferences Section */}
-        <Drawer.Section title="Preferences">
-          <View style={styles.preference}>
-            <Text>Dark Theme</Text>
-            <View>
-              <Switch value={isDarkTheme} onValueChange={toggleTheme} />
-            </View>
-          </View>
-        </Drawer.Section>
+        <View style={styles.preference}>
+          <MaterialCommunityIcons
+            name={isDarkTheme ? "moon-waning-crescent" : "white-balance-sunny"}
+            color={isDarkTheme ? "#ffffff" : "#000000"}
+            size={24}
+          />
+          <Text style={styles.text}>Dark Theme</Text>
+          <Switch
+            value={isDarkTheme}
+            onValueChange={toggleTheme}
+            style={styles.switch}
+          />
+        </View>
 
         {/* Bottom Section */}
-        <Drawer.Section style={styles.bottomDrawerSection}>
+        <View style={styles.bottomDrawerSection}>
           <DrawerItem
-            icon={({ color, size }) => (
+            icon={({ size }) => (
               <MaterialCommunityIcons
                 name="cog-outline"
-                color={color}
+                color={isDarkTheme ? "#ffffff" : "#666666"}
                 size={size}
               />
             )}
             label="Settings"
+            labelStyle={styles.drawerItemLabel}
             onPress={() => handleNavigation("/settings")}
           />
           <DrawerItem
-            icon={({ color, size }) => (
-              <MaterialCommunityIcons name="logout" color={color} size={size} />
+            icon={({ size }) => (
+              <MaterialCommunityIcons
+                name="logout"
+                color={isDarkTheme ? "#ffffff" : "#666666"}
+                size={size}
+              />
             )}
             label="Sign Out"
+            labelStyle={styles.drawerItemLabel}
             onPress={() => handleNavigation("/auth/index")}
           />
-        </Drawer.Section>
+        </View>
       </View>
     </DrawerContentScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  drawerContent: {
-    flex: 1,
-  },
-  userInfoSection: {
-    paddingLeft: 20,
-    paddingVertical: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: "#f0f0f0",
-  },
-  userInfoHeader: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  userDetails: {
-    marginLeft: 15,
-    flexDirection: "column",
-  },
-  title: {
-    fontSize: 16,
-    marginTop: 3,
-    fontWeight: "bold",
-    fontFamily: "Inter-SemiBold",
-  },
-  caption: {
-    fontSize: 14,
-    lineHeight: 14,
-    fontFamily: "Inter-Regular",
-  },
-  drawerSection: {
-    marginTop: 15,
-  },
-  bottomDrawerSection: {
-    marginBottom: 15,
-    borderTopColor: "#f0f0f0",
-    borderTopWidth: 1,
-    marginTop: "auto",
-  },
-  preference: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-  },
-});
-
 export default CustomDrawerContent;
